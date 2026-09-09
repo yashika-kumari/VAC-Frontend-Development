@@ -1,0 +1,438 @@
+/* =========================================
+   RESET
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   BODY
+   ========================================= */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    color: #1c1e21;
+}
+
+
+/* =========================================
+   MAIN PAGE
+   ========================================= */
+
+.login-page {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+}
+
+
+/* =========================================
+   LEFT SECTION
+   ========================================= */
+
+.left-section {
+    width: 50%;
+    min-height: 100vh;
+
+    position: relative;
+
+    padding: 35px 3.2% 8% 3.2%;
+
+    display: flex;
+    flex-direction: column;
+
+    /* Keeps logo at top and tagline at bottom */
+    justify-content: space-between;
+}
+
+
+/* =========================================
+   FACEBOOK WORDMARK
+   ========================================= */
+
+.facebook-logo {
+    position: relative;
+
+    color: #1877f2;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 43px;
+    font-weight: 700;
+
+    letter-spacing: -2.5px;
+
+    /* Prevents the logo from affecting other elements */
+    width: fit-content;
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   IMAGE SPACE
+   ========================================= */
+
+.image-space {
+    position: absolute;
+
+    width: 55%;
+    height: 45%;
+
+    top: 25%;
+    left: 22%;
+
+    /* Images removed */
+}
+
+
+/* =========================================
+   TAGLINE
+   ========================================= */
+
+.tagline {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    font-size: clamp(48px, 4.2vw, 70px);
+
+    font-weight: 700;
+
+    line-height: 1.13;
+
+    letter-spacing: -2px;
+
+    /* Keeps tagline above the bottom edge */
+    margin-top: 40px;
+}
+
+
+/* Blue text */
+
+.blue-text {
+    color: #1877f2;
+}
+
+
+/* Black period */
+
+.black-dot {
+    color: #000000;
+}
+
+
+/* =========================================
+   VERTICAL DIVIDER
+   ========================================= */
+
+.divider {
+    width: 1px;
+
+    min-height: 100vh;
+
+    background-color: #d9d9d9;
+}
+
+
+/* =========================================
+   RIGHT SECTION
+   ========================================= */
+
+.right-section {
+    width: 50%;
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================================
+   LOGIN CONTAINER
+   ========================================= */
+
+.login-container {
+    width: 84%;
+    max-width: 650px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   HEADING
+   ========================================= */
+
+.login-container h1 {
+    font-size: 22px;
+
+    font-weight: 600;
+
+    margin-bottom: 25px;
+
+    text-align: left;
+}
+
+
+/* =========================================
+   INPUT FIELDS
+   ========================================= */
+
+.input-field {
+    width: 100%;
+
+    height: 72px;
+
+    padding: 0 20px;
+
+    margin-bottom: 12px;
+
+    border: 1px solid #d1d1d1;
+
+    border-radius: 20px;
+
+    background-color: white;
+
+    color: #1c1e21;
+
+    font-size: 17px;
+
+    outline: none;
+}
+
+
+.input-field::placeholder {
+    color: #65676b;
+}
+
+
+.input-field:focus {
+    border: 2px solid #1877f2;
+}
+
+
+/* =========================================
+   LOGIN BUTTON
+   ========================================= */
+
+.login-button {
+    width: 100%;
+
+    height: 54px;
+
+    margin-top: 17px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background-color: #0866ff;
+
+    color: white;
+
+    font-size: 19px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.login-button:hover {
+    background-color: #075ce5;
+}
+
+
+/* =========================================
+   FORGOTTEN PASSWORD
+   ========================================= */
+
+.forgot-password {
+    display: inline-block;
+
+    margin-top: 28px;
+
+    color: #1c1e21;
+
+    text-decoration: none;
+
+    font-size: 18px;
+
+    font-weight: 500;
+}
+
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   CREATE ACCOUNT
+   ========================================= */
+
+.account-section {
+    margin-top: 80px;
+}
+
+
+.create-account {
+    width: 100%;
+
+    height: 54px;
+
+    background-color: white;
+
+    border: 1px solid #0866ff;
+
+    border-radius: 30px;
+
+    color: #0866ff;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.create-account:hover {
+    background-color: #f5f8ff;
+}
+
+
+/* =========================================
+   META
+   ========================================= */
+
+.meta-text {
+    margin-top: 30px;
+
+    color: #1c1e21;
+
+    font-size: 20px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .login-page {
+        flex-direction: column;
+    }
+
+
+    .left-section {
+        width: 100%;
+        min-height: 40vh;
+
+        padding: 30px 40px;
+    }
+
+
+    .facebook-logo {
+        font-size: 38px;
+    }
+
+
+    .image-space {
+        display: none;
+    }
+
+
+    .divider {
+        display: none;
+    }
+
+
+    .tagline {
+        font-size: 50px;
+    }
+
+
+    .right-section {
+        width: 100%;
+        min-height: 60vh;
+
+        padding: 30px;
+    }
+
+
+    .login-container {
+        width: 100%;
+        max-width: 600px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 500px) {
+
+    .left-section {
+        min-height: 35vh;
+
+        padding: 25px 30px;
+    }
+
+
+    .facebook-logo {
+        font-size: 34px;
+        letter-spacing: -2px;
+    }
+
+
+    .tagline {
+        font-size: 40px;
+
+        letter-spacing: -1.5px;
+
+        margin-top: 30px;
+    }
+
+
+    .right-section {
+        padding: 20px;
+    }
+
+
+    .login-container h1 {
+        font-size: 20px;
+    }
+
+
+    .input-field {
+        height: 60px;
+
+        border-radius: 16px;
+    }
+
+
+    .login-button {
+        height: 52px;
+    }
+
+
+    .account-section {
+        margin-top: 60px;
+    }
+}
