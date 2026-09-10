@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jack — Playlist</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  body { background:#000; }
+  img { -webkit-user-drag: none; }
+</style>
+</head>
+<body class="h-screen w-full bg-black text-white overflow-hidden">
+
+<div class="flex h-screen w-full bg-black text-white">
+
+  <!-- Icon rail -->
+  <div class="flex w-20 shrink-0 flex-col items-center gap-5 border-r border-white/5 bg-black py-6">
+    <button class="rounded-full p-2 text-white hover:bg-white/10">
+      <i data-lucide="home" class="h-6 w-6"></i>
+    </button>
+    <button class="rounded-full p-2 text-white/60 hover:bg-white/10 hover:text-white">
+      <i data-lucide="search" class="h-6 w-6"></i>
+    </button>
+
+    <div class="mt-2 flex flex-col items-center gap-3" id="sidebar-thumbs">
+      <button class="flex h-11 w-11 items-center justify-center rounded-md bg-gradient-to-br from-indigo-400 to-violet-700 shadow-inner shadow-black/30">
+        <i data-lucide="heart" class="h-5 w-5 fill-white text-white"></i>
+      </button>
+      <!-- playlist thumbs injected by JS -->
+    </div>
+  </div>
+
+  <!-- Main column -->
+  <div class="flex min-w-0 flex-1 flex-col relative">
+    <div class="flex-1 overflow-y-auto pb-24">
+
+      <!-- Hero -->
+      <div class="relative bg-gradient-to-b from-orange-800/70 via-red-950/60 to-black px-8 pb-8 pt-6">
+        <div class="mb-8 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <button class="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white/80 hover:bg-black/60">
+              <i data-lucide="chevron-left" class="h-5 w-5"></i>
+            </button>
+            <button class="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white/80 hover:bg-black/60">
+              <i data-lucide="chevron-right" class="h-5 w-5"></i>
+            </button>
+          </div>
+          <div class="flex items-center gap-3">
+            <i data-lucide="bell" class="h-5 w-5 text-white/70 hover:text-white"></i>
+            <i data-lucide="users" class="h-5 w-5 text-white/70 hover:text-white"></i>
+            <img src="https://picsum.photos/seed/user-avatar/56/56" class="h-7 w-7 rounded-full object-cover" alt="" />
+          </div>
+        </div>
+
+        <div class="flex items-end gap-6">
+          <div class="grid h-44 w-44 shrink-0 grid-cols-2 grid-rows-2 overflow-hidden rounded shadow-2xl shadow-black/60">
+            <img src="https://picsum.photos/seed/collage-a/200/200" class="h-full w-full object-cover" alt="" />
+            <img src="https://picsum.photos/seed/collage-b/200/200" class="h-full w-full object-cover" alt="" />
+            <img src="https://picsum.photos/seed/collage-c/200/200" class="h-full w-full object-cover" alt="" />
+            <img src="https://picsum.photos/seed/collage-d/200/200" class="h-full w-full object-cover" alt="" />
+          </div>
+          <div class="min-w-0 pb-1">
+            <p class="text-sm font-medium text-white/90">Public Playlist</p>
+            <h1 class="mt-2 truncate text-7xl font-black tracking-tight">Jack</h1>
+            <div class="mt-4 flex items-center gap-2 text-sm text-white/80">
+              <img src="https://picsum.photos/seed/user-avatar/56/56" class="h-6 w-6 rounded-full object-cover" alt="Reza" />
+              <span class="font-semibold text-white">Reza</span>
+              <span class="text-white/50">· 10 songs, 24 min 38 sec</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center justify-between bg-gradient-to-b from-black/40 to-black px-8 py-5">
+        <div class="flex items-center gap-6">
+          <button id="play-btn-hero" class="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-black transition hover:scale-105 hover:bg-emerald-400">
+            <i data-lucide="pause" class="h-6 w-6 fill-black play-icon"></i>
+          </button>
+          <i data-lucide="shuffle" class="h-6 w-6 text-white/70 hover:text-white"></i>
+          <i data-lucide="more-horizontal" class="h-6 w-6 text-white/70 hover:text-white"></i>
+        </div>
+        <div class="flex items-center gap-5 text-white/60">
+          <i data-lucide="search" class="h-5 w-5 hover:text-white"></i>
+          <button class="flex items-center gap-1 text-sm hover:text-white">
+            Custom order
+            <i data-lucide="chevron-down" class="h-4 w-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Track list -->
+      <div class="px-8">
+        <div class="grid grid-cols-[32px_4fr_2fr_1.3fr_70px] gap-4 border-b border-white/10 px-4 pb-2 text-xs font-medium uppercase tracking-wide text-white/50">
+          <div>#</div>
+          <div>Title</div>
+          <div>Album</div>
+          <div>Date Added</div>
+          <div class="flex justify-end"><i data-lucide="clock" class="h-4 w-4"></i></div>
+        </div>
+        <div class="mt-2 pb-6" id="track-list"></div>
+      </div>
+    </div>
+
+    <!-- Player bar -->
+    <div class="absolute bottom-0 left-0 right-0 flex h-20 items-center justify-between border-t border-white/10 bg-neutral-950 px-4 lg:right-80">
+      <div class="flex min-w-0 items-center gap-3">
+        <img src="https://picsum.photos/seed/track-4/112/112" class="h-14 w-14 shrink-0 rounded object-cover" alt="SUNDOWN" />
+        <div class="min-w-0">
+          <div class="truncate text-sm text-white">SMELLS LIKE INCENSE</div>
+          <div class="flex items-center gap-1 truncate text-xs text-white/50">
+            <span class="inline-flex h-3.5 w-3.5 items-center justify-center rounded-sm border border-white/40 text-[9px] leading-none text-white/60">E</span>
+            Jack Harlow
+          </div>
+        </div>
+        <i data-lucide="heart" class="ml-3 h-4 w-4 shrink-0 text-white/50 hover:text-white"></i>
+      </div>
+
+      <div class="flex w-full max-w-xl flex-col items-center gap-2">
+        <div class="flex items-center gap-5 text-white/70">
+          <i data-lucide="shuffle" class="h-4 w-4 hover:text-white"></i>
+          <i data-lucide="skip-back" class="h-4 w-4 fill-current hover:text-white"></i>
+          <button id="play-btn-bar" class="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black hover:scale-105">
+            <i data-lucide="pause" class="h-4 w-4 fill-black play-icon"></i>
+          </button>
+          <i data-lucide="skip-forward" class="h-4 w-4 fill-current hover:text-white"></i>
+          <i data-lucide="repeat" class="h-4 w-4 text-emerald-500"></i>
+        </div>
+        <div class="flex w-full items-center gap-2 text-[11px] text-white/50">
+          <span>1:23</span>
+          <div class="h-1 flex-1 rounded-full bg-white/20">
+            <div class="h-1 w-1/3 rounded-full bg-white"></div>
+          </div>
+          <span>-0:81</span>
+        </div>
+      </div>
+
+      <div class="hidden items-center gap-3 text-white/60 sm:flex">
+        <i data-lucide="list-music" class="h-4 w-4 rounded bg-emerald-500/20 p-0.5 text-emerald-400"></i>
+        <i data-lucide="list-music" class="h-4 w-4 hover:text-white"></i>
+        <i data-lucide="laptop-2" class="h-4 w-4 hover:text-white"></i>
+        <i data-lucide="volume-2" class="h-4 w-4 hover:text-white"></i>
+        <div class="h-1 w-20 rounded-full bg-white/20">
+          <div class="h-1 w-2/3 rounded-full bg-white"></div>
+        </div>
+        <i data-lucide="maximize-2" class="h-4 w-4 hover:text-white"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div class="hidden w-80 shrink-0 flex-col gap-4 overflow-y-auto border-l border-white/5 bg-neutral-950 p-4 lg:flex">
+    <h2 class="px-1 text-lg font-bold">Jack</h2>
+
+    <div class="overflow-hidden rounded-lg bg-gradient-to-b from-neutral-800 to-neutral-900">
+      <img src="https://picsum.photos/seed/track-4/320/320" class="aspect-square w-full object-cover" alt="SUNDOWN" />
+      <div class="p-3">
+        <div class="text-lg font-bold">SUNDOWN</div>
+        <div class="text-sm text-white/60">Jack Harlow</div>
+      </div>
+    </div>
+
+    <div class="overflow-hidden rounded-lg bg-neutral-900">
+      <div class="relative">
+        <img src="https://picsum.photos/seed/artist-portrait/480/300" class="aspect-[16/10] w-full object-cover" alt="Jack Harlow" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <span class="absolute left-3 top-3 text-sm font-semibold text-white">About the Artist</span>
+      </div>
+      <div class="p-3">
+        <div class="flex items-center justify-between">
+          <div class="text-base font-bold">Jack Harlow</div>
+          <button class="rounded-full border border-white/30 px-3 py-1 text-xs font-semibold text-white hover:border-white">Unfollow</button>
+        </div>
+        <div class="mt-1 text-sm text-white/50">59,905,128 monthly listeners</div>
+        <p class="mt-3 text-sm leading-relaxed text-white/70">
+          A Louisville, KY rapper known for laid-back delivery and radio-ready hooks,
+          with multiple major-label albums and a string of chart hits to his name.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ---- Data ----
+  const img = (seed, w = 300, h = 300) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
+
+  const library = [
+    { label: "Warm Tones", seed: "warm-tones" },
+    { label: "Night Drive", seed: "night-drive" },
+    { label: "Focus", seed: "focus-pl" },
+    { label: "Reset", seed: "reset-pl" },
+    { label: "8-bit", seed: "8-bit-pl" },
+    { label: "Wind Down", seed: "wind-down" },
+    { label: "Collage", seed: "collage-pl" },
+    { label: "Tactics", seed: "tactics-pl" },
+    { label: "Mono", seed: "mono-pl" },
+    { label: "Sprint", seed: "sprint-pl" },
+    { label: "Op-Ed", seed: "op-ed-pl" },
+    { label: "Field Notes", seed: "field-notes" },
+    { label: "Pixel", seed: "pixel-pl" },
+  ];
+
+  const tracks = [
+    { n: 1, title: "SMELLS LIKE INCENSE", artist: "Jack Harlow", album: "Confetti", added: "Sept 21, 2023", dur: "2:33", seed: "track-1" },
+    { n: 2, title: "Rendezvous", artist: "Jack Harlow", album: "Thats What They All Say", added: "Sept 21, 2023", dur: "1:53", seed: "track-2" },
+    { n: 3, title: "WALK IN THE PARK", artist: "Jack Harlow", album: "Sweet Action", added: "Sept 25, 2023", dur: "2:05", liked: true, seed: "track-3" },
+    { n: 4, title: "SUNDOWN", artist: "Jack Harlow", album: "Loose", added: "Oct 1, 2023", dur: "2:02", active: true, seed: "track-4" },
+    { n: 5, title: "CODY BANKS", artist: "Jack Harlow", album: "Loose", added: "Oct 1, 2023", dur: "2:32", seed: "track-5" },
+    { n: 6, title: "WARSAW", artist: "Jack Harlow", album: "Sweet Action", added: "Oct 1, 2023", dur: "2:32", seed: "track-6" },
+    { n: 7, title: "Moana", artist: "G-Eazy, Jack Harlow", album: "Moana", added: "Oct 4, 2023", dur: "2:58", seed: "track-7" },
+    { n: 8, title: "Creme", artist: "Jack Harlow", album: "Thats What They All Say", added: "Oct 4, 2023", dur: "2:58", seed: "track-8" },
+    { n: 9, title: "What's Poppin (feat. DaBaby, Tory Lanez...)", artist: "Jack Harlow", album: "Confetti", added: "Oct 4, 2023", dur: "2:58", seed: "track-9" },
+    { n: 10, title: "What's Poppin (feat. DaBaby, Tory Lanez...)", artist: "Jack Harlow", album: "Confetti", added: "Oct 4, 2023", dur: "2:58", seed: "track-10" },
+  ];
+
+  // ---- Render sidebar thumbs ----
+  const sidebarEl = document.getElementById("sidebar-thumbs");
+  library.forEach((item) => {
+    const btn = document.createElement("button");
+    btn.title = item.label;
+    btn.className = "h-11 w-11 shrink-0 overflow-hidden rounded-md shadow-inner shadow-black/30 transition hover:scale-[1.04]";
+    btn.innerHTML = `<img src="${img(item.seed, 88, 88)}" alt="${item.label}" class="h-full w-full object-cover" />`;
+    sidebarEl.appendChild(btn);
+  });
+
+  // ---- Render track rows ----
+  const trackListEl = document.getElementById("track-list");
+  tracks.forEach((t) => {
+    const row = document.createElement("div");
+    row.className = "group grid grid-cols-[32px_4fr_2fr_1.3fr_70px] items-center gap-4 rounded-md px-4 py-2 hover:bg-white/5";
+    row.innerHTML = `
+      <div class="text-sm text-white/50">
+        ${
+          t.active
+            ? `<i data-lucide="audio-lines" class="h-4 w-4 text-emerald-500"></i>`
+            : `<span class="group-hover:hidden">${t.n}</span><i data-lucide="play" class="hidden h-3.5 w-3.5 fill-white text-white group-hover:inline"></i>`
+        }
+      </div>
+      <div class="flex min-w-0 items-center gap-3">
+        <img src="${img(t.seed, 80, 80)}" alt="${t.title}" class="h-10 w-10 shrink-0 rounded object-cover" />
+        <div class="min-w-0">
+          <div class="truncate text-[15px] ${t.active ? "text-emerald-500" : "text-white"}">${t.title}</div>
+          <div class="truncate text-[13px] text-white/50">
+            <span class="mr-1 inline-flex h-3.5 w-3.5 items-center justify-center rounded-sm border border-white/40 align-[-2px] text-[9px] leading-none text-white/60">E</span>
+            ${t.artist}
+          </div>
+        </div>
+      </div>
+      <div class="truncate text-sm text-white/50">${t.album}</div>
+      <div class="truncate text-sm text-white/50">${t.added}</div>
+      <div class="flex items-center justify-end gap-3 text-sm text-white/50">
+        ${t.liked ? `<i data-lucide="heart" class="h-4 w-4 fill-emerald-500 text-emerald-500"></i>` : ""}
+        ${t.dur}
+      </div>
+    `;
+    trackListEl.appendChild(row);
+  });
+
+  // ---- Play / pause toggle (syncs both buttons) ----
+  let playing = true;
+  function renderPlayIcon() {
+    document.querySelectorAll(".play-icon").forEach((el) => {
+      el.setAttribute("data-lucide", playing ? "pause" : "play");
+    });
+    lucide.createIcons();
+  }
+  document.getElementById("play-btn-hero").addEventListener("click", () => {
+    playing = !playing;
+    renderPlayIcon();
+  });
+  document.getElementById("play-btn-bar").addEventListener("click", () => {
+    playing = !playing;
+    renderPlayIcon();
+  });
+
+  // ---- Init icons ----
+  lucide.createIcons();
+</script>
+
+</body>
+</html>
