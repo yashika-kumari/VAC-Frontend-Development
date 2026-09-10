@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yashika Kumari – Resume</title>
+  <meta name="description" content="Resume of Yashika Kumari – Computer Science undergraduate skilled in Java, Full-Stack Development, and AI-powered applications." />
+
+  <!-- Source Sans Pro from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #e8e8e8;
+      font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
+      font-size: 10pt;
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 32px 0 48px;
+    }
+
+    /* ============================================================
+       A4 PAGE SHEET
+    ============================================================ */
+    .page {
+      width: 794px;
+      min-height: 1123px;
+      background: #fff;
+      padding: 22px 26px 28px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .header {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .header h1 {
+      font-size: 21pt;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0 3px;
+      font-size: 9.8pt;
+      line-height: 1.4;
+      color: #000;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .contact-item i {
+      font-size: 9pt;
+      color: #000;
+    }
+
+    .contact-row a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    .contact-row a:hover {
+      text-decoration: underline;
+    }
+
+    .sep {
+      padding: 0 3px;
+      color: #444;
+    }
+
+    /* ============================================================
+       SECTION HEADINGS
+    ============================================================ */
+    .section {
+      margin-top: 10px;
+    }
+
+    .section-heading {
+      font-size: 13.5pt;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+
+    .section-rule {
+      border: none;
+      border-top: 1.25px solid #000;
+      margin: 0 0 7px 0;
+    }
+
+    /* ============================================================
+       PROFILE
+    ============================================================ */
+    .profile-text {
+      font-size: 9.8pt;
+      line-height: 1.42;
+    }
+
+    /* ============================================================
+       EDUCATION
+    ============================================================ */
+    .edu-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .edu-degree {
+      font-size: 10.3pt;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .edu-meta {
+      font-size: 9.8pt;
+      white-space: nowrap;
+      text-align: right;
+      flex-shrink: 0;
+      margin-left: 10px;
+    }
+
+    .edu-college {
+      font-style: italic;
+      font-size: 9.7pt;
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+
+    .edu-cgpa {
+      font-size: 9.7pt;
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       SKILLS
+    ============================================================ */
+    .skills-row {
+      font-size: 9.8pt;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .skill-sep {
+      padding: 0 8px;
+    }
+
+    /* ============================================================
+       ENTRY (Projects & Leadership)
+    ============================================================ */
+    .entry {
+      margin-bottom: 10px;
+    }
+
+    .entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .entry-title {
+      font-size: 10.3pt;
+      font-weight: 700;
+      line-height: 1.3;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .entry-title .fa {
+      font-size: 7.5pt;
+      opacity: 0.7;
+      position: relative;
+      top: -1px;
+    }
+
+    .entry-title-sm {
+      font-size: 10.1pt;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .entry-date {
+      font-size: 9.6pt;
+      white-space: nowrap;
+      text-align: right;
+      flex-shrink: 0;
+      margin-left: 10px;
+    }
+
+    .entry-tech {
+      font-style: italic;
+      font-size: 9.5pt;
+      line-height: 1.4;
+      margin-top: 1px;
+      margin-bottom: 1px;
+    }
+
+    .entry-role {
+      font-style: italic;
+      font-size: 9.5pt;
+      line-height: 1.4;
+      margin-top: 1px;
+      margin-bottom: 2px;
+    }
+
+    /* ============================================================
+       BULLET POINTS
+    ============================================================ */
+    .bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .bullets li {
+      font-size: 9.35pt;
+      line-height: 1.38;
+      padding-left: 11px;
+      text-indent: -8px;
+      margin-bottom: 2px;
+    }
+
+    .bullets li::before {
+      content: '\2022\00a0';
+    }
+
+    .bullets li b {
+      font-weight: 700;
+    }
+
+    /* ============================================================
+       CERTIFICATES
+    ============================================================ */
+    .cert-entry {
+      margin-bottom: 8px;
+    }
+
+    .cert-entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .cert-title {
+      font-size: 9.9pt;
+      font-weight: 700;
+      line-height: 1.3;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .cert-title .fa {
+      font-size: 7.5pt;
+      opacity: 0.7;
+      position: relative;
+      top: -1px;
+    }
+
+    .cert-title-sm {
+      font-size: 9.6pt;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .cert-subtitle {
+      font-size: 9.4pt;
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+
+    .cert-link {
+      font-size: 9.3pt;
+      color: #000;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .cert-link:hover {
+      text-decoration: underline;
+    }
+
+    a.link-icon {
+      color: #000;
+      text-decoration: none;
+    }
+
+    a.link-icon:hover { opacity: 0.6; }
+
+    /* ============================================================
+       PRINT
+    ============================================================ */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .page {
+        box-shadow: none;
+        width: 100%;
+        min-height: auto;
+        padding: 14px 18px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<article class="page" role="main">
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header class="header">
+    <h1>Yashika Kumari</h1>
+    <div class="contact-row">
+
+      <span class="contact-item">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+        <a href="mailto:yashikamjr@gmail.com">yashikamjr@gmail.com</a>
+      </span>
+
+      <span class="sep">|</span>
+
+      <span class="contact-item">
+        <i class="fa fa-phone" aria-hidden="true"></i>
+        <span>7877375737</span>
+      </span>
+
+      <span class="sep">|</span>
+
+      <span class="contact-item">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <span>Jaipur, India</span>
+      </span>
+
+      <span class="sep">|</span>
+
+      <span class="contact-item">
+        <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+        <a href="https://linkedin.com/in/yashika-kumari" target="_blank" rel="noopener">linkedin.com/in/yashika-kumari</a>
+      </span>
+
+      <span class="sep">|</span>
+
+      <span class="contact-item">
+        <i class="fa fa-github" aria-hidden="true"></i>
+        <a href="https://github.com/yashika-kumari" target="_blank" rel="noopener">github.com/yashika-kumari</a>
+      </span>
+
+    </div>
+  </header>
+
+
+  <!-- ============================================================
+       PROFILE
+  ============================================================ -->
+  <section class="section" aria-labelledby="section-profile">
+    <h2 class="section-heading" id="section-profile">PROFILE</h2>
+    <hr class="section-rule" />
+    <p class="profile-text">
+      Computer Science undergraduate with strong foundations in Java, Data Structures &amp; Algorithms, and Full-Stack Development.
+      Experienced in building AI-powered applications, backend systems, and responsive web applications using modern development tools.
+      Passionate about building scalable software and continuously improving through hands-on projects.
+    </p>
+  </section>
+
+
+  <!-- ============================================================
+       EDUCATION
+  ============================================================ -->
+  <section class="section" aria-labelledby="section-education">
+    <h2 class="section-heading" id="section-education">EDUCATION</h2>
+    <hr class="section-rule" />
+    <div class="edu-entry">
+      <span class="edu-degree">B.Tech Computer Science and Engineering</span>
+      <span class="edu-meta">2024 – 2028 | Jaipur, India</span>
+    </div>
+    <div class="edu-college">Poornima College of Engineering</div>
+    <div class="edu-cgpa">CGPA - 8.98</div>
+  </section>
+
+
+  <!-- ============================================================
+       SKILLS
+  ============================================================ -->
+  <section class="section" aria-labelledby="section-skills">
+    <h2 class="section-heading" id="section-skills">SKILLS</h2>
+    <hr class="section-rule" />
+    <div class="skills-row">
+      <span>Java</span><span class="skill-sep">|</span>
+      <span>JavaScript</span><span class="skill-sep">|</span>
+      <span>Python</span><span class="skill-sep">|</span>
+      <span>Node.js</span><span class="skill-sep">|</span>
+      <span>Express.js</span><span class="skill-sep">|</span>
+      <span>FastAPI</span><span class="skill-sep">|</span>
+      <span>Docker</span><span class="skill-sep">|</span>
+      <span>MySQL</span><span class="skill-sep">|</span>
+      <span>Git</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PROJECTS
+  ============================================================ -->
+  <section class="section" aria-labelledby="section-projects">
+    <h2 class="section-heading" id="section-projects">PROJECTS</h2>
+    <hr class="section-rule" />
+
+    <!-- Project 1 -->
+    <div class="entry">
+      <div class="entry-title">
+        Intelligent Candidate Discovery &amp; Ranking System
+        <a href="#" class="link-icon" aria-label="Project link"><i class="fa fa-chain" aria-hidden="true"></i></a>
+      </div>
+      <div class="entry-tech">Python, FastAPI, FAISS, Sentence Transformers, Docker, NumPy, Hugging Face</div>
+      <ul class="bullets">
+        <li>Developed an AI-powered candidate ranking system that processed <b>100,000 candidate profiles</b> against job descriptions using <b>vector embeddings, keyword matching, and multi-stage ranking algorithms.</b></li>
+        <li>Designed a hybrid ranking pipeline combining <b>keyword extraction, MiniLM embeddings, cosine similarity, and six behavioral ranking signals</b> including experience, notice period, location preference, recruiter responsiveness, and profile recency to improve candidate relevance.</li>
+        <li>Built a fully offline <b>CPU-only inference pipeline</b> using FastAPI and Docker that completed ranking in <b>under 60 seconds</b> without relying on external APIs or cloud-based LLM inference.</li>
+      </ul>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="entry">
+      <div class="entry-title">
+        Car Rental System
+        <a href="#" class="link-icon" aria-label="Project link"><i class="fa fa-chain" aria-hidden="true"></i></a>
+      </div>
+      <div class="entry-tech">Java, Java Swing, OOP</div>
+      <ul class="bullets">
+        <li>Developed a desktop-based <b>Car Rental Management System</b> using Java Swing with dedicated modules for customer management, vehicle inventory, rentals, returns, and bill generation.</li>
+        <li>Implemented Object-Oriented Programming principles with modular class design, input validation, search functionality, and file-based data persistence for reliable record management.</li>
+        <li>Designed an interactive GUI to streamline vehicle booking, rental history tracking, and automated bill generation, improving overall usability and maintainability.</li>
+      </ul>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="entry">
+      <div class="entry-title">
+        Billing Management System
+        <a href="#" class="link-icon" aria-label="Project link"><i class="fa fa-chain" aria-hidden="true"></i></a>
+      </div>
+      <div class="entry-tech">Java, Java Swing, OOP</div>
+      <ul class="bullets">
+        <li>Developed a desktop-based <b>Billing Management System</b> using Java Swing for invoice generation, GST calculation, discount processing, and receipt generation.</li>
+        <li>Implemented Object-Oriented Programming principles with modular business logic, input validation, and file-based bill storage for efficient billing management.</li>
+        <li>Designed an intuitive GUI supporting multi-item billing, bill history management, and printable professional receipts to improve usability.</li>
+      </ul>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       LEADERSHIP EXPERIENCE
+  ============================================================ -->
+  <section class="section" aria-labelledby="section-leadership">
+    <h2 class="section-heading" id="section-leadership">LEADERSHIP EXPERIENCE</h2>
+    <hr class="section-rule" />
+
+    <!-- Hack IT Sapiens – Graphics Lead -->
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title-sm">Hack IT Sapiens</span>
+        <span class="entry-date">09/2025 – 06/2026 | Jaipur, India</span>
+      </div>
+      <div class="entry-role">Graphics Lead</div>
+    </div>
+
+    <!-- Hack IT Sapiens – Vice Captain -->
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title-sm">Hack IT Sapiens</span>
+        <span class="entry-date">09/2024 – 08/2025 | Jaipur, India</span>
+      </div>
+      <div class="entry-role">Vice Captain – Students' Council</div>
+      <ul class="bullets">
+        <li>Coordinated recruitment for <b>100+ applicants</b>, streamlining application management and communication workflows.</li>
+        <li>Organized technical events and workshops attended by <b>150+ students</b> across multiple colleges.</li>
+      </ul>
+    </div>
+
+    <!-- Poornima College Alumni Society -->
+    <div class="entry">
+      <div class="entry-header">
+        <span class="entry-title-sm">Poornima College Alumni Society</span>
+        <span class="entry-date">10/2024 – 03/2025 | Jaipur, India</span>
+      </div>
+      <div class="entry-role">Student Coordinator</div>
+      <ul class="bullets">
+        <li>Coordinated and supported The Grand Alumni Meet, which hosted <b>200+ alumni</b>, ensuring smooth operations across all phases.</li>
+        <li>Handled alumni calling, event planning, poster designing, and video editing, contributing to a <b>20% increase</b> in alumni participation.</li>
+      </ul>
+    </div>
+
+  </section>
+
+
+  <!-- ============================================================
+       CERTIFICATES
+  ============================================================ -->
+  <section class="section" aria-labelledby="section-certificates">
+    <h2 class="section-heading" id="section-certificates">CERTIFICATES</h2>
+    <hr class="section-rule" />
+
+    <!-- Certificate 1 -->
+    <div class="cert-entry">
+      <div class="cert-title">
+        NPTEL – Cyber Security and Privacy
+        <a href="#" class="link-icon" aria-label="Certificate link"><i class="fa fa-chain" aria-hidden="true"></i></a>
+      </div>
+      <div class="cert-subtitle">Elite + Silver (Top 5%)</div>
+    </div>
+
+    <!-- Certificate 2 -->
+    <div class="cert-entry">
+      <div class="cert-title">
+        OpenAI Academy – Agents and Workflows
+        <a href="#" class="link-icon" aria-label="Certificate link"><i class="fa fa-chain" aria-hidden="true"></i></a>
+      </div>
+    </div>
+
+    <!-- Certificate 3 -->
+    <div class="cert-entry">
+      <div class="cert-title-sm">IBM SkillsBuild – Introduction to Retrieval Augmented Generation (RAG)</div>
+      <div class="cert-subtitle">
+        <a href="#" class="cert-link">Link <i class="fa fa-chain" aria-hidden="true"></i></a>
+      </div>
+    </div>
+
+  </section>
+
+</article>
+
+</body>
+</html>
