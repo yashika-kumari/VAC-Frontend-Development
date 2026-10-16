@@ -1,13 +1,133 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Clock, Users, Heart, Trash2, List, ChefHat, Sparkles, UtensilsCrossed } from "lucide-react";
+import { useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import {
+  ArrowLeft,
+  Clock,
+  Users,
+  Heart,
+  Trash2,
+  List,
+  ChefHat,
+  Sparkles,
+  UtensilsCrossed,
+  BookOpen,
+  Search,
+  X,
+} from "lucide-react";
 import { useRecipes } from "../context/RecipeContext";
+import RecipeCard from "../components/RecipeCard";
 import "./RecipeDetails.css";
+
+const CATEGORIES = ["All", "Italian", "Indian", "Breakfast", "Dessert", "Salad", "Mexican"];
 
 export default function RecipeDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { recipes, toggleFavorite, deleteRecipe } = useRecipes();
 
+  // Search & Filter state for the "All Recipe Details" view
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const difficultyColor = {
+    Easy: "diff-easy",
+    Medium: "diff-medium",
+    Hard: "diff-hard",
+  };
+
+  // Case 1: Route is /recipe-details (no specific id provided) -> Display All Recipes
+  if (!id) {
+    const filteredRecipes = recipes.filter((r) => {
+      const matchSearch =
+        r.title.toLowerCase().includes(search.toLowerCase()) ||
+        r.category.toLowerCase().includes(search.toLowerCase()) ||
+        r.description.toLowerCase().includes(search.toLowerCase());
+      const matchCategory = activeCategory === "All" || r.category === activeCategory;
+      return matchSearch && matchCategory;
+    });
+
+    return (
+      <main className="all-recipes-page">
+        <div className="container">
+          {/* Header */}
+          <div className="page-header">
+            <div className="page-header-icon-box">
+              <BookOpen size={24} strokeWidth={2} />
+            </div>
+            <div>
+              <h1 className="page-title">Recipe Details & Directory</h1>
+              <p className="page-subtitle">
+                Explore complete ingredients, preparation steps, and culinary details for all{" "}
+                <strong>{recipes.length}</strong> recipes.
+              </p>
+            </div>
+          </div>
+
+          {/* Search & Category Filter */}
+          <div className="catalog-toolbar">
+            <div className="catalog-search-bar">
+              <Search size={16} className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search recipe details..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="catalog-search-input"
+              />
+              {search && (
+                <button
+                  className="search-clear"
+                  onClick={() => setSearch("")}
+                  aria-label="Clear search"
+                >
+                  <X size={13} />
+                </button>
+              )}
+            </div>
+
+            <div className="categories-row">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  className={`cat-btn ${activeCategory === cat ? "cat-active" : ""}`}
+                  onClick={() => setActiveCategory(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Results Summary */}
+          <div className="catalog-status">
+            <span>
+              Displaying <strong>{filteredRecipes.length}</strong> {filteredRecipes.length === 1 ? "recipe" : "recipes"}
+              {activeCategory !== "All" && <> in <em>{activeCategory}</em></>}
+            </span>
+          </div>
+
+          {/* Recipe Grid */}
+          {filteredRecipes.length > 0 ? (
+            <div className="recipe-grid">
+              {filteredRecipes.map((recipe) => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
+              ))}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <div className="empty-icon-box">
+                <UtensilsCrossed size={26} strokeWidth={1.8} />
+              </div>
+              <h3>No recipes found</h3>
+              <p>Try searching for a different keyword or choose another category filter.</p>
+            </div>
+          )}
+        </div>
+      </main>
+    );
+  }
+
+  // Case 2: Specific recipe id provided (/recipe/:id)
   const recipe = recipes.find((r) => r.id === Number(id));
 
   if (!recipe) {
@@ -19,24 +139,18 @@ export default function RecipeDetails() {
           </div>
           <h2>Recipe Not Found</h2>
           <p>The dish you are looking for does not exist in the vault.</p>
-          <button className="btn-back" onClick={() => navigate("/")}>
+          <button className="btn-back" onClick={() => navigate("/recipe-details")}>
             <ArrowLeft size={16} />
-            <span>Return to Home</span>
+            <span>View All Recipes</span>
           </button>
         </div>
       </div>
     );
   }
 
-  const difficultyColor = {
-    Easy: "diff-easy",
-    Medium: "diff-medium",
-    Hard: "diff-hard",
-  };
-
   const handleDelete = () => {
     deleteRecipe(recipe.id);
-    navigate("/");
+    navigate("/recipe-details");
   };
 
   return (

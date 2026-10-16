@@ -13,9 +13,11 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/recipes" element={<RecipeDetails />} />
+          <Route path="/recipe-details" element={<RecipeDetails />} />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/add" element={<AddRecipe />} />
-          <Route path="/recipe/:id" element={<RecipeDetails />} />
         </Routes>
       </BrowserRouter>
     </RecipeProvider>

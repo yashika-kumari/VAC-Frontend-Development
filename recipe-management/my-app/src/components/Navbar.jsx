@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { UtensilsCrossed, Heart, Plus, Menu, X } from "lucide-react";
+import { UtensilsCrossed, Heart, Plus, Menu, X, BookOpen } from "lucide-react";
 import { useRecipes } from "../context/RecipeContext";
 import "./Navbar.css";
 
@@ -10,6 +10,10 @@ export default function Navbar() {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
+  const isRecipeDetailsActive =
+    isActive("/recipe-details") ||
+    isActive("/recipes") ||
+    location.pathname.startsWith("/recipe/");
 
   return (
     <header className="navbar">
@@ -39,6 +43,15 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
           >
             <span>Home</span>
+          </Link>
+
+          <Link
+            to="/recipe-details"
+            className={`nav-link ${isRecipeDetailsActive ? "active" : ""}`}
+            onClick={() => setMenuOpen(false)}
+          >
+            <BookOpen size={15} strokeWidth={2} className="nav-icon" />
+            <span>Recipe Details</span>
             <span className="nav-count">{recipes.length}</span>
           </Link>
 
